@@ -1,0 +1,24 @@
+<div class="page-header">
+  <%= link_to addresses_path, class: 'btn btn-default' do %>
+    All Addresses
+  <% end %>
+  <%= link_to edit_address_path(@address), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show address</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Street:</dt>
+  <dd><%= @address.street %></dd>
+  <dt>City:</dt>
+  <dd><%= @address.city %></dd>
+  <dt>State:</dt>
+  <dd><%= @address.state %></dd>
+  <dt>Zip:</dt>
+  <dd><%= @address.zip %></dd>
+  <dt>Country:</dt>
+  <dd><%= @address.country %></dd>
+  <dt>User:</dt>
+  <dd><%= @address.user %></dd>
+</dl>
