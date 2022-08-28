@@ -6,30 +6,35 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 puts 'Seeding development database...'
-dean = User.first_or_create!(email: 'dean@example.com',
-                             password: 'password',
-                             password_confirmation: 'password',
-                             first_name: 'Dean',
-                             last_name: 'DeHart',
-                             role: User.roles[:admin])
+dean = User.find_or_create_by!(email: 'dean@example.com') do |user|
+                             user.password = 'password'
+                             user.password_confirmation = 'password'
+                             user.first_name = 'Dean'
+                             user.last_name = 'DeHart'
+                             user.role = User.roles[:admin]
+                            end
 
-john = User.first_or_create!(email: 'john@doe.com',
-                             password: 'password',
-                             password_confirmation: 'password',
-                             first_name: 'John',
-                             last_name: 'Doe')
-Address.first_or_create!(street: '123 Main St',
-                         city: 'Anytown',
-                         state: 'CA',
-                         zip: '12345',
-                         country: 'USA',
-                         user: dean)
-Address.first_or_create(street: '123 Main St',
-                        city: 'Anytown',
-                        state: 'CA',
-                        zip: '12345',
-                        country: 'USA',
-                        user: john)
+john = User.find_or_create_by!(email: 'john@doe.com') do |user|
+                             user.password = 'password'
+                             user.password_confirmation = 'password'
+                             user.first_name = 'John'
+                             user.last_name = 'Doe'
+                            end
+Address.find_or_create_by!(user: dean) do |address|
+                              address.street = '123 Main St'
+                              address.city = 'Anytown'
+                              address.state = 'CA'
+                              address.zip = '12345'
+                              address.country = 'USA'
+                            end
+Address.find_or_create_by!(user: john) do |address|
+                              address.street = '123 Main St'
+                              address.city = 'Anytown'
+                              address.state = 'CA'
+                              address.zip = '12345'
+                              address.country = 'USA'
+                            end
+
 elapsed = Benchmark.measure do
   posts = []
   10.times do |x|
