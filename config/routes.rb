@@ -19,7 +19,9 @@ end
 
   resources :notifications, only: [:index]
   resources :announcements, only: [:index]
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
+
+  resources :after_signup  
   root to: 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
