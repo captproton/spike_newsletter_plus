@@ -1,7 +1,7 @@
 class AfterSignupController < ApplicationController
   include Wicked::Wizard    
   # Asterisk means variable number of arguments
-  steps(*User.form_steps)
+  steps(*User.new.form_steps)
 
   def show
     @user = current_user

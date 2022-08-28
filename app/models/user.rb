@@ -1,17 +1,13 @@
 module FormSteps
   # http://api.rubyonrails.org/classes/Module.html#method-i-mattr_accessor
   mattr_accessor :form_steps do
-    %i(sign_up set_name set_address find_users)
+    %w[sign_up set_name set_address find_users]
   end
 end
 
 class User < ApplicationRecord
-  # include FormSteps
+  include FormSteps
 
-    # Class level accessor http://apidock.com/rails/Class/cattr_accessor
-  cattr_accessor :form_steps do
-    %w[sign_up set_name set_address find_users]
-  end
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
   attr_accessor :form_step
 
