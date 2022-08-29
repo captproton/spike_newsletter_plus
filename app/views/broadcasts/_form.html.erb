@@ -1,0 +1,64 @@
+<%= form_with(model: broadcast) do |form| %>
+  <% if broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :subject, class: 'form-label' %>
+      <%= form.text_field :subject, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :preview, class: 'form-label' %>
+      <%= form.text_field :preview, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :sender_name, class: 'form-label' %>
+      <%= form.text_field :sender_name, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :sender_email, class: 'form-label' %>
+      <%= form.text_field :sender_email, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :recipients_group, class: 'form-label' %>
+      <%= form.text_field :recipients_group, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :send_at, class: 'form-label' %>
+      <%= form.text_field :send_at, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <% if broadcast.persisted? %>
+      <div class="float-end">
+        <%= link_to 'Destroy', broadcast, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if broadcast.persisted? %>
+      <%= link_to "Cancel", broadcast, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", broadcasts_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>

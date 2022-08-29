@@ -1,0 +1,29 @@
+<h1>BroadcastParts#create_content</h1>
+<p>Find me in app/views/broadcast_parts/create_content.html.erb</p>
+<hr>
+
+  <%= form_for @broadcast, method: :put, url: wizard_path do |form| %>
+
+  <% if @broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% @broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.rich_text_area :content %>
+  </div>
+
+
+      <%= form.submit 'Next Step', class:"btn btn-primary" %>
+
+<% end %>
+<hr>
+<%= link_to 'skip', next_wizard_path %>

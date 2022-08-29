@@ -90,3 +90,4 @@ gem "responders", github: "heartcombo/responders", branch: "main"
 gem "activerecord-import", "~> 1.4"
 
 gem "wicked", "~> 1.4"
+gem 'ffaker', '~> 2.21'

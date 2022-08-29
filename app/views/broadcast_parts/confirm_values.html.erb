@@ -1,0 +1,29 @@
+<h1>BroadcastParts#confirm_values</h1>
+<p>Find me in app/views/broadcast_parts/confirm_values.html.erb</p>
+
+  <%= form_for @broadcast, method: :put, url: wizard_path do |form| %>
+  <% if @broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% @broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+\
+
+  <div class="mb-3">
+    <%= form.label :send_at, class: 'form-label' %>
+      <%= form.text_field :send_at, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary', value: "next" %>
+
+  </div>
+<% end %>
+<hr>
+<%= link_to 'skip', next_wizard_path %>
