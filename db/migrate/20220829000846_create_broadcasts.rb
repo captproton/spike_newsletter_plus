@@ -7,7 +7,7 @@ class CreateBroadcasts < ActiveRecord::Migration[7.0]
       t.string :sender_name
       t.string :sender_email
       t.string :recipients_group
-      t.string :send_at
+      t.datetime :send_at
 
       t.timestamps
     end
