@@ -1,0 +1,13 @@
+<ul class="nav nav-pills">
+  <% @form_steps_links.each do |step|%>
+      <li class="nav-item">
+        <% if step.to_s == params[:id].to_s %>
+          <%= nav_link_active(step) %>
+        <% else %>
+          <%= nav_link(step) %>          
+        <% end %>
+
+    </li>
+
+  <% end %>
+</ul>

@@ -1,7 +1,69 @@
 <h1>BroadcastParts#confirm_values</h1>
 <p>Find me in app/views/broadcast_parts/confirm_values.html.erb</p>
 
-  <%= form_for @broadcast, method: :put, url: wizard_path do |form| %>
+<%= render "builder_nav" %>
+
+<h2>You're almost ready</h2>
+<p>Review your edition before sending</p>
+
+<div class="review-block">
+  <div class="review-item">
+    <h3>Recipeints</h3>
+    Recipeint Group (xx recipents)
+    
+    <%= link_to  "Edit",  
+         
+        wizard_path(:assign_settings),
+        class: "btn btn-secondary"
+        %>
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Sender</h3>
+    Lemon Squeezy (lemon@squeezy.com)
+    
+    <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+  </div>
+  <hr />
+  
+  <div class="review-item">
+    <h3>Subject</h3>
+    The lemon squeezy slack is here
+    
+    <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Preview</h3>
+    Help us build the future of ecommerce.
+    
+    <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Content</h3>
+    [Content thumb here]
+    
+    <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+    <span>
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+        <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+    </span>
+  </div>
+  <hr />
+
+</div>
+
+<%= form_for @broadcast, method: :put, url: wizard_path do |form| %>
   <% if @broadcast.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
@@ -13,17 +75,37 @@
       </ul>
     </div>
   <% end %>
-\
 
-  <div class="mb-3">
-    <%= form.label :send_at, class: 'form-label' %>
-      <%= form.text_field :send_at, class: 'form-control' %>
+
+  <hr />
+  <div class="schedule-edition">
+    <h3>Delivery</h3>
+    <p>
+      Send now or schedule into the future     
+    </p>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="send_now" id="send_now" value="true">
+      <label class="form-check-label" for="broadcast_schedule">
+        Send now
+      </label>
     </div>
 
-  <div class="mb-3">
-    <%= form.submit class: 'btn btn-primary', value: "next" %>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="send_now" id="send_now"  value="false" checked>
+      <label class="form-check-label" for="broadcast_schedule">
+        Send later
+      </label>
+    </div>
+
+    <%= form.datetime_select :send_at, class: 'form-label' %>
 
   </div>
+  <p>&nbsp;</p>
+
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary', value: "Schedule Edition" %>
+  </div>
+
 <% end %>
 <hr>
-<%= link_to 'skip', next_wizard_path %>

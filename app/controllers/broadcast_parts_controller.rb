@@ -6,6 +6,7 @@ class BroadcastPartsController < ApplicationController
 
   def show
     @broadcast = Broadcast.find(params[:broadcast_id])
+    @form_steps_links = Broadcast.new.form_steps.drop(1)
 
     case step
     when 'initialize_model'
@@ -17,11 +18,15 @@ class BroadcastPartsController < ApplicationController
 
   def update
     @broadcast = Broadcast.find(params[:broadcast_id])
+    @form_steps_links = Broadcast.new.form_steps.drop(1)
 
     case step
     when 'initialize_model'
       skip_step if @broadcast.persisted?
     when 'assign_settings'
+        link_classes = "nav-link active"
+        aria_hash     = Hash.new
+        aria_hash[:current] = 'page'
         if @broadcast.update(broadcast_params)
             render_wizard @broadcast
         else
@@ -29,6 +34,7 @@ class BroadcastPartsController < ApplicationController
         end
       
     when 'create_content'
+        link_classes = "nav-link active"
         if @broadcast.update(broadcast_params)
             render_wizard @broadcast
         else
@@ -36,6 +42,7 @@ class BroadcastPartsController < ApplicationController
         end
 
     when 'confirm_values'
+        link_classes = "nav-link active"
         if @broadcast.update(broadcast_params)
             render_wizard @broadcast
         else
@@ -58,7 +65,7 @@ class BroadcastPartsController < ApplicationController
 
   def broadcast_params
     params  .require(:broadcast)
-            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized, :content)
+            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized, :content, :send_now)
   end
 
 end

@@ -17,5 +17,10 @@ class Broadcast < ApplicationRecord
     @form_step ||= 'initialize_broadcast'
   end
 
+  def send_now
+    @send_now ||= false
+  end
+  
+
 
 end

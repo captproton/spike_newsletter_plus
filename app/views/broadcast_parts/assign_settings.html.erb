@@ -1,6 +1,9 @@
 <h1>BroadcastParts#assign_settings</h1>
 <p>Find me in app/views/broadcast_parts/assign_settings.html.erb</p>
+
+  <%= render "builder_nav" %>
 <hr>
+
   <%= form_for @broadcast, method: :put, url: wizard_path, data: {turbo: false } do |form| %>
 
   <% if @broadcast.errors.any? %>
@@ -49,4 +52,4 @@
 
 <% end %>
 
-<%= link_to 'skip', next_wizard_path %>
+<%#= link_to 'skip', next_wizard_path %>
