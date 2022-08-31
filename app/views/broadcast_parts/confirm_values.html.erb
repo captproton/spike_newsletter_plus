@@ -1,3 +1,38 @@
+<style>
+.review-item {
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: repeat(2, 1fr);
+grid-column-gap: 6px;
+grid-row-gap: 0px;
+}
+.review-item h3 {
+  grid-column: 1 /  span 4;
+}
+.review-item .description {
+  grid-column: 1 /  span 4;
+}
+.review-item .edit-button {
+    grid-column: 6;
+  grid-row: 1/ span 2;
+}
+.content-review-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 6px;
+  grid-row-gap: 0px;
+}
+
+.content-review-grid .preview-container {
+
+}
+.content-review-grid .buttons-container {
+  grid-column: 4 /  span 3;
+
+}
+</style>
+
 <h1>BroadcastParts#confirm_values</h1>
 <p>Find me in app/views/broadcast_parts/confirm_values.html.erb</p>
 
@@ -9,55 +44,74 @@
 <div class="review-block">
   <div class="review-item">
     <h3>Recipeints</h3>
-    Recipeint Group (xx recipents)
-    
-    <%= link_to  "Edit",  
-         
-        wizard_path(:assign_settings),
-        class: "btn btn-secondary"
-        %>
+    <div class="description">
+      Recipeint Group (xx recipents)    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit",
+          wizard_path(:assign_settings),
+          class: "btn btn-secondary"
+          %>    
+    </div>
   </div>
   <hr />
 
   <div class="review-item">
     <h3>Sender</h3>
-    Lemon Squeezy (lemon@squeezy.com)
-    
-    <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
+    <div class="description">
+      Lemon Squeezy (lemon@squeezy.com)
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>
   </div>
   <hr />
   
   <div class="review-item">
     <h3>Subject</h3>
-    The lemon squeezy slack is here
-    
-    <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
+    <div class="description">
+      The lemon squeezy slack is here    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>    
   </div>
   <hr />
 
   <div class="review-item">
     <h3>Preview</h3>
-    Help us build the future of ecommerce.
-    
-    <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
+    <div class="description">
+      Help us build the future of ecommerce.    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>    
   </div>
   <hr />
 
   <div class="review-item">
     <h3>Content</h3>
-    [Content thumb here]
-    
+    <div class="description">
+    &nbsp;&nbsp;
+    </div>
+    <div class="edit-button">
     <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>    
+    </div>
+  </div>
+  <div class="content-review-grid">
+    <div  class="preview-container">
+      [Image goes here]
+    </div>
+    <div class="buttons-container">
+      <%= link_to  "Preview", wizard_path(:assign_settings),
         class: "btn btn-secondary" %>
-    <span>
-      <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
-        <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
-    </span>
+      <%= link_to  "Send Test", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>    
+    </div>
   </div>
   <hr />
 
@@ -80,25 +134,28 @@
   <hr />
   <div class="schedule-edition">
     <h3>Delivery</h3>
-    <p>
-      Send now or schedule into the future     
-    </p>
+  <fieldset>
+    <legend>Keep as draft, send now or schedule into the future</legend>
+    
+
 
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="send_now" id="send_now" value="true">
-      <label class="form-check-label" for="broadcast_schedule">
-        Send now
-      </label>
+      <%= form.radio_button :status, "D", class: "form-check-input"  %>
+      <%= form.label(:status, "Keep as draft", value: "d")%>
     </div>
 
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="send_now" id="send_now"  value="false" checked>
-      <label class="form-check-label" for="broadcast_schedule">
-        Send later
-      </label>
+      <%= form.radio_button :status, "IR", class: "form-check-input"  %>
+      <%= form.label(:status, "Send now", value: "IR")%>
     </div>
 
-    <%= form.datetime_select :send_at, class: 'form-label' %>
+    <div class="form-check">
+      <%= form.radio_button :status, "SL", class: "form-check-input"  %>
+      <%= form.label(:status, "Send later", value: "SL")%>
+    </div>
+
+  </fieldset>
+  <%= form.datetime_select :send_at, class: 'form-label' %>
 
   </div>
   <p>&nbsp;</p>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_29_185846) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_022034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_185846) do
     t.string "state"
     t.string "zip"
     t.string "country"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
@@ -80,10 +80,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_185846) do
     t.string "sender_name"
     t.string "sender_email"
     t.string "recipients_group"
-    t.string "send_at"
+    t.datetime "send_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "initialized"
+    t.string "status"
   end
 
   create_table "comments", force: :cascade do |t|

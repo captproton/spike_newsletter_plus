@@ -20,7 +20,21 @@ class Broadcast < ApplicationRecord
   def send_now
     @send_now ||= false
   end
+
+    # set user role
+    enum status: {
+      draft: "D",
+      immediate_release: "IR",
+      schedule_for_later: "SL",
+      published: "P"}
+  after_initialize :set_default_status, if: :new_record?
+
   
+  private
+
+  def set_default_status
+    self.status ||= :draft
+  end
 
 
 end

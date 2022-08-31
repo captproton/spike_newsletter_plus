@@ -44,6 +44,7 @@ class BroadcastPartsController < ApplicationController
     when 'confirm_values'
         link_classes = "nav-link active"
         if @broadcast.update(broadcast_params)
+          
             render_wizard @broadcast
         else
             render_wizard @broadcast, status: :unprocessable_entity
@@ -65,7 +66,7 @@ class BroadcastPartsController < ApplicationController
 
   def broadcast_params
     params  .require(:broadcast)
-            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized, :content, :send_now)
+            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized, :content, :status)
   end
 
 end
