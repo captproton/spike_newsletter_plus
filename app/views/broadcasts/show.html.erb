@@ -10,6 +10,9 @@
 
 <dl class="dl-horizontal">
   <dt>Publication:</dt>
+  <dd>
+    <%= link_to @broadcast.publication.name, @broadcast.publication %>
+  </dd>
   <dd><%= @broadcast.publication.name %></dd>
   <dt>Subject:</dt>
   <dd><%= @broadcast.subject %></dd>
@@ -22,5 +25,7 @@
   <dt>Recipients group:</dt>
   <dd><%= @broadcast.recipients_group %></dd>
   <dt>Send at:</dt>
-  <dd><%= @broadcast.send_at %></dd>
+  <dd>
+    <%= "#{@broadcast.send_at} (#{@broadcast.scheduled_at})" %>
+  </dd>
 </dl>
