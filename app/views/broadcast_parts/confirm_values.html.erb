@@ -134,24 +134,20 @@ grid-row-gap: 0px;
   <hr />
   <div class="schedule-edition">
     <h3>Delivery</h3>
+    <% radios = Broadcast.statuses.except(:p, :sl) %>
   <fieldset>
     <legend>Keep as draft, send now or schedule into the future</legend>
     
-
-
-    <div class="form-check">
-      <%= form.radio_button :status, "D", class: "form-check-input"  %>
-      <%= form.label(:status, "Keep as draft", value: "d")%>
-    </div>
-
-    <div class="form-check">
-      <%= form.radio_button :status, "IR", class: "form-check-input"  %>
-      <%= form.label(:status, "Send now", value: "IR")%>
-    </div>
+    <% radios.each do |radio| %>
+      <div class="form-check">
+      <%= form.radio_button :status, radio.first.to_sym , class: "form-check-input" %>
+        <%= form.label(:status, radio.last.to_s.humanize, value: radio.first.to_sym )%>
+      </div>
+    <% end %>
 
     <div class="form-check">
-      <%= form.radio_button :status, "SL", class: "form-check-input"  %>
-      <%= form.label(:status, "Send later", value: "SL")%>
+      <%= form.radio_button :status, "sl" , class: "form-check-input" %>
+        <%= form.label(:status, "Schedule for later", value: "sl" )%>
     </div>
 
   </fieldset>

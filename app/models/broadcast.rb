@@ -11,7 +11,9 @@ class Broadcast < ApplicationRecord
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
   attr_accessor :form_step
 
-    has_rich_text :content
+  has_rich_text :content
+
+  belongs_to :publication, optional: true
 
   def form_step
     @form_step ||= 'initialize_broadcast'
@@ -23,17 +25,18 @@ class Broadcast < ApplicationRecord
 
     # set user role
     enum status: {
-      draft: "D",
-      immediate_release: "IR",
-      schedule_for_later: "SL",
-      published: "P"}
+      d: "keep_as_draft",
+      ir: "immediate_release",
+      sl: "schedule_for_later",
+      p: "published"
+    }
   after_initialize :set_default_status, if: :new_record?
 
   
   private
 
   def set_default_status
-    self.status ||= :draft
+    self.status ||= :d
   end
 
 
