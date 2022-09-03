@@ -34,10 +34,10 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :address, allow_destroy: true
 
   # progressive validations for wicked
-  with_options if: -> { required_for_step?('set_name') } do |step|
-    step.validates :first_name, presence: true
-    step.validates :last_name, presence: true
-  end  
+  # with_options if: -> { required_for_step?('set_name') } do |step|
+  #   step.validates :first_name, presence: true
+  #   step.validates :last_name, presence: true
+  # end  
 
   validates_associated :address, if: -> { required_for_step?('set_address') }
 

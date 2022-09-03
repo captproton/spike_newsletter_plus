@@ -1,0 +1,164 @@
+<style>
+.review-item {
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: repeat(2, 1fr);
+grid-column-gap: 6px;
+grid-row-gap: 0px;
+}
+.review-item h3 {
+  grid-column: 1 /  span 4;
+}
+.review-item .description {
+  grid-column: 1 /  span 4;
+}
+.review-item .edit-button {
+    grid-column: 6;
+  grid-row: 1/ span 2;
+}
+.content-review-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 6px;
+  grid-row-gap: 0px;
+}
+
+.content-review-grid .preview-container {
+
+}
+.content-review-grid .buttons-container {
+  grid-column: 4 /  span 3;
+
+}
+</style>
+
+<h1>BroadcastParts#confirm_values</h1>
+<p>Find me in app/views/broadcast_parts/confirm_values.html.erb</p>
+
+<%= render "builder_nav" %>
+
+<h2>You're almost ready</h2>
+<p>Review your edition before sending</p>
+
+<div class="review-block">
+  <div class="review-item">
+    <h3>Recipeints</h3>
+    <div class="description">
+      Recipeint Group (xx recipents)    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit",
+          wizard_path(:assign_settings),
+          class: "btn btn-secondary"
+          %>    
+    </div>
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Sender</h3>
+    <div class="description">
+      Lemon Squeezy (lemon@squeezy.com)
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>
+  </div>
+  <hr />
+  
+  <div class="review-item">
+    <h3>Subject</h3>
+    <div class="description">
+      The lemon squeezy slack is here    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>    
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Preview</h3>
+    <div class="description">
+      Help us build the future of ecommerce.    
+    </div>
+    <div class="edit-button">
+      <%= link_to  "Edit", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+    </div>    
+  </div>
+  <hr />
+
+  <div class="review-item">
+    <h3>Content</h3>
+    <div class="description">
+    &nbsp;&nbsp;
+    </div>
+    <div class="edit-button">
+    <%= link_to  "Edit", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>    
+    </div>
+  </div>
+  <div class="content-review-grid">
+    <div  class="preview-container">
+      [Image goes here]
+    </div>
+    <div class="buttons-container">
+      <%= link_to  "Preview", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>
+      <%= link_to  "Send Test", wizard_path(:assign_settings),
+        class: "btn btn-secondary" %>    
+    </div>
+  </div>
+  <hr />
+
+</div>
+
+<%= form_for @broadcast, method: :put, url: wizard_path do |form| %>
+  <% if @broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% @broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <hr />
+  <div class="schedule-edition">
+    <h3>Delivery</h3>
+    <% radios = Broadcast.statuses.except(:p, :sl) %>
+  <fieldset>
+    <legend>Keep as draft, send now or schedule into the future</legend>
+    
+    <% radios.each do |radio| %>
+      <div class="form-check">
+      <%= form.radio_button :status, radio.first.to_sym , class: "form-check-input" %>
+        <%= form.label(:status, radio.last.to_s.humanize, value: radio.first.to_sym )%>
+      </div>
+    <% end %>
+
+    <div class="form-check">
+      <%= form.radio_button :status, "sl" , class: "form-check-input" %>
+        <%= form.label(:status, "Schedule for later", value: "sl" )%>
+    </div>
+
+  </fieldset>
+  <%= form.datetime_select :send_at, class: 'form-label' %>
+
+  </div>
+  <p>&nbsp;</p>
+
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary', value: "Schedule Edition" %>
+  </div>
+
+<% end %>
+<hr>
