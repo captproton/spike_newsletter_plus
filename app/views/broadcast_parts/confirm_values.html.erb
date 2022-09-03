@@ -133,10 +133,10 @@ grid-row-gap: 0px;
 
   <hr />
   <div class="schedule-edition">
-    <h3>Delivery</h3>
+    <h3>Set Status &amp; Delivery</h3>
     <% radios = Broadcast.statuses.except(:p, :sl) %>
   <fieldset>
-    <legend>Keep as draft, send now or schedule into the future</legend>
+    <!-- <legend>Keep as draft, send now or schedule into the future</legend> -->
     
     <% radios.each do |radio| %>
       <div class="form-check">

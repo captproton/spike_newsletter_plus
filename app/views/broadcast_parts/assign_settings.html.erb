@@ -1,5 +1,3 @@
-<h1>BroadcastParts#assign_settings</h1>
-<p>Find me in app/views/broadcast_parts/assign_settings.html.erb</p>
 
   <%= render "builder_nav" %>
 <hr>
@@ -22,32 +20,32 @@
     <%= form.label :name, class: 'form-label' %>
     <%= form.select :publication_id, Publication.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
 
-    </div>
+  </div>
 
   <div class="mb-3">
     <%= form.label :subject, class: 'form-label' %>
-      <%= form.text_field :subject, class: 'form-control' %>
-    </div>
+    <%= form.text_field :subject, class: 'form-control' %>
+  </div>
 
   <div class="mb-3">
     <%= form.label :preview, class: 'form-label' %>
-      <%= form.text_field :preview, class: 'form-control' %>
-    </div>
+    <%= form.text_field :preview, class: 'form-control' %>
+  </div>
 
   <div class="mb-3">
     <%= form.label :sender_name, class: 'form-label' %>
-      <%= form.text_field :sender_name, class: 'form-control' %>
-    </div>
+    <%= form.text_field :sender_name, class: 'form-control' %>
+  </div>
 
   <div class="mb-3">
     <%= form.label :sender_email, class: 'form-label' %>
-      <%= form.text_field :sender_email, class: 'form-control' %>
-    </div>
+    <%= form.text_field :sender_email, class: 'form-control' %>
+  </div>
 
   <div class="mb-3">
     <%= form.label :recipients_group, class: 'form-label' %>
-      <%= form.text_field :recipients_group, class: 'form-control' %>
-    </div>
+    <%= form.text_field :recipients_group, class: 'form-control' %>
+  </div>
 
       <%= form.submit 'Next Step', class:"btn btn-primary" %>
 
