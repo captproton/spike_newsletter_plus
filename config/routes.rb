@@ -1,6 +1,13 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :publications
+  get 'broadcast_parts/assign_settings'
+  get 'broadcast_parts/create_content'
+  get 'broadcast_parts/confirm_values'
+  resources :broadcasts do
+    resources :broadcast_parts
+  end
   resources :comments
   resources :addresses
   resources :posts
@@ -19,7 +26,9 @@ end
 
   resources :notifications, only: [:index]
   resources :announcements, only: [:index]
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations" }
+
+  resources :after_signup  
   root to: 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,0 +1,54 @@
+
+  <%= render "builder_nav" %>
+<hr>
+
+  <%= form_for @broadcast, method: :put, url: wizard_path, data: {turbo: false } do |form| %>
+
+  <% if @broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% @broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.select :publication_id, Publication.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :subject, class: 'form-label' %>
+    <%= form.text_field :subject, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :preview, class: 'form-label' %>
+    <%= form.text_field :preview, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :sender_name, class: 'form-label' %>
+    <%= form.text_field :sender_name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :sender_email, class: 'form-label' %>
+    <%= form.text_field :sender_email, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :recipients_group, class: 'form-label' %>
+    <%= form.text_field :recipients_group, class: 'form-control' %>
+  </div>
+
+      <%= form.submit 'Next Step', class:"btn btn-primary" %>
+
+<% end %>
+
+<%#= link_to 'skip', next_wizard_path %>

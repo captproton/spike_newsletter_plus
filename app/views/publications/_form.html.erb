@@ -1,0 +1,34 @@
+<%= form_with(model: publication) do |form| %>
+  <% if publication.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
+
+      <ul>
+      <% publication.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+  <div class="mb-3">
+    <% if publication.persisted? %>
+      <div class="float-end">
+        <%= link_to 'Destroy', publication, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if publication.persisted? %>
+      <%= link_to "Cancel", publication, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", publications_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>

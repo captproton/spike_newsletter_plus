@@ -1,0 +1,18 @@
+<!-- card start -->
+<div class="card" style="width: 18rem;margin: 1rem;">
+    <% if !card.content.embeds.empty? %>
+        <%= image_tag card.content.embeds.find{|embeds| embeds.image?}.variant(resize_to_limit: [200, 200]) %>
+    <% else %>
+        <%= image_tag "publication_card_placeholder", class: "card-img-top broadcast-card--image", alt:"Card image cap" %>
+    <% end %>
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= card.subject %>
+        </h5>
+        <p class="card-text">
+            <%= card.preview %>
+        </p>
+        <%= link_to "View", card, class: "btn btn-primary" %>
+    </div>
+</div>
+<!-- card finish -->

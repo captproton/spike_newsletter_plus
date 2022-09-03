@@ -1,0 +1,96 @@
+<hr>
+
+
+<%= form_with(model: broadcast) do |form| %>
+  <% if broadcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(broadcast.errors.count, "error") %> prohibited this broadcast from being saved:</h2>
+
+      <ul>
+      <% broadcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<h5>Settings</h5>
+  <div class="mb-3">
+    <%= form.label :publication_name, class: 'form-label' %>
+      <%= form.select :publication_id, Publication.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :subject, class: 'form-label' %>
+      <%= form.text_field :subject, class: 'form-control' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :preview, class: 'form-label' %>
+      <%= form.text_field :preview, class: 'form-control' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :sender_name, class: 'form-label' %>
+      <%= form.text_field :sender_name, class: 'form-control' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :sender_email, class: 'form-label' %>
+      <%= form.text_field :sender_email, class: 'form-control' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :recipients_group, class: 'form-label' %>
+      <%= form.text_field :recipients_group, class: 'form-control' %>
+  </div>
+<hr>
+
+<h5>Content</h5>
+<div class="field">
+  <%= form.label :content %>
+    <%= form.rich_text_area :content %>
+</div>
+<hr>
+
+<h5>Status &amp; Delivery</h5>
+<div class="schedule-edition">
+  <% radios=Broadcast.statuses.except(:p, :sl) %>
+    <fieldset>
+      <!-- <legend>Keep as draft, send now or schedule into the future</legend> -->
+
+      <% radios.each do |radio| %>
+        <div class="form-check">
+          <%= form.radio_button :status, radio.first.to_sym , class: "form-check-input" %>
+            <%= form.label(:status, radio.last.to_s.humanize, value: radio.first.to_sym )%>
+        </div>
+        <% end %>
+
+          <div class="form-check">
+            <%= form.radio_button :status, "sl" , class: "form-check-input" %>
+              <%= form.label(:status, "Schedule for later" , value: "sl" )%>
+          </div>
+
+    </fieldset>
+    <%= form.datetime_select :send_at, class: 'form-label' %>
+
+</div>
+<hr>
+
+  <div class="mb-3">
+    <% if broadcast.persisted? %>
+      <div class="float-end">
+        <%= link_to 'Destroy', broadcast, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if broadcast.persisted? %>
+      <%= link_to "Cancel", broadcast, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", broadcasts_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
