@@ -1,40 +1,45 @@
 <style>
-.review-item {
-display: grid;
-grid-template-columns: repeat(6, 1fr);
-grid-template-rows: repeat(2, 1fr);
-grid-column-gap: 6px;
-grid-row-gap: 0px;
-}
-.review-item h3 {
-  grid-column: 1 /  span 4;
-}
-.review-item .description {
-  grid-column: 1 /  span 4;
-}
-.review-item .edit-button {
-    grid-column: 6;
-  grid-row: 1/ span 2;
-}
-.content-review-grid {
+  .review-item {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 6px;
   grid-row-gap: 0px;
-}
+  }
+  .review-item h5 {
+    grid-column: 1 /  span 4;
+  }
+  .review-item .description {
+    grid-column: 1 /  span 4;
+  }
+  .review-item .edit-button {
+      grid-column: 6;
+    grid-row: 1/ span 2;
+  }
+  .content-review-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 6px;
+    grid-row-gap: 0px;
+  }
 
-.content-review-grid .preview-container {
+  .content-review-grid .preview-container {
+    grid-column: 1 /  span 2;
+  }
+  .content-review-grid .buttons-container {
+    grid-column: 3 /  span 2;
 
-}
-.content-review-grid .buttons-container {
-  grid-column: 4 /  span 3;
+  }
+  .preview_image {
+    display:block;
+    margin:auto;
+  }
 
-}
+  .content-preview--buttons-div {
+  display: grid;
+  justify-content: center;
+  align-items: center;  
+  }
 </style>
-
-<h1>BroadcastParts#confirm_values</h1>
-<p>Find me in app/views/broadcast_parts/confirm_values.html.erb</p>
 
 <%= render "builder_nav" %>
 
@@ -43,9 +48,9 @@ grid-row-gap: 0px;
 
 <div class="review-block">
   <div class="review-item">
-    <h3>Recipeints</h3>
+    <h5>Recipeints</h5>
     <div class="description">
-      Recipeint Group (xx recipents)    
+      <%= "#{@broadcast.recipients_group.humanize.titleize} (#{Contact.send(@broadcast.recipients_group).count} recipients)"  %>
     </div>
     <div class="edit-button">
       <%= link_to  "Edit",
@@ -57,9 +62,9 @@ grid-row-gap: 0px;
   <hr />
 
   <div class="review-item">
-    <h3>Sender</h3>
+    <h5>Sender</h5>
     <div class="description">
-      Lemon Squeezy (lemon@squeezy.com)
+      <%= "#{@broadcast.sender_name} (#{@broadcast.sender_email})" %>
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", wizard_path(:assign_settings),
@@ -69,9 +74,9 @@ grid-row-gap: 0px;
   <hr />
   
   <div class="review-item">
-    <h3>Subject</h3>
+    <h5>Subject</h5>
     <div class="description">
-      The lemon squeezy slack is here    
+      <%= "#{@broadcast.subject}" %>
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", wizard_path(:assign_settings),
@@ -81,9 +86,9 @@ grid-row-gap: 0px;
   <hr />
 
   <div class="review-item">
-    <h3>Preview</h3>
+    <h5>Preview</h5>
     <div class="description">
-      Help us build the future of ecommerce.    
+      <%= "#{@broadcast.preview}" %>    
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", wizard_path(:assign_settings),
@@ -93,7 +98,7 @@ grid-row-gap: 0px;
   <hr />
 
   <div class="review-item">
-    <h3>Content</h3>
+    <h5>Content</h5>
     <div class="description">
     &nbsp;&nbsp;
     </div>
@@ -104,13 +109,21 @@ grid-row-gap: 0px;
   </div>
   <div class="content-review-grid">
     <div  class="preview-container">
-      [Image goes here]
+        <%= render "preview_card" %>
+
+
+
     </div>
     <div class="buttons-container">
-      <%= link_to  "Preview", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>
-      <%= link_to  "Send Test", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>    
+      <div class="content-preview--buttons-div">
+        <%= link_to  "Preview", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>
+        <br>
+        &nbsp;&nbsp;
+        <%= link_to  "Send Test", wizard_path(:assign_settings),
+          class: "btn btn-secondary" %>    
+
+      </div>
     </div>
   </div>
   <hr />
@@ -133,7 +146,7 @@ grid-row-gap: 0px;
 
   <hr />
   <div class="schedule-edition">
-    <h3>Set Status &amp; Delivery</h3>
+    <h5>Set Status &amp; Delivery</h5>
     <% radios = Broadcast.statuses.except(:p, :sl) %>
   <fieldset>
     <!-- <legend>Keep as draft, send now or schedule into the future</legend> -->
