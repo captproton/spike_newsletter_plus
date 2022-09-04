@@ -41,13 +41,12 @@ include ActionView::Helpers::NumberHelper
 
   # calculate time difference  
   def scheduled_at
-      phase_of_future_or_past =
-  if  self.send_at < Time.now
-    "ago"
-  else
-    "from now"
-  end
-      return distance_of_time_in_words(Time.now, self.send_at, false, highest_measures: 2) + " " + "#{phase_of_future_or_past}"
+      phrase_of_future_or_past = self.send_at < Time.now ? "ago" : "from now"
+
+    return distance_of_time_in_words(Time.now, 
+                                      self.send_at, 
+                                      false, 
+                                      highest_measures: 2) + " " + "#{phrase_of_future_or_past}"
   end
   
   

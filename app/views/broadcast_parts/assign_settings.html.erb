@@ -18,8 +18,8 @@
 
   <div class="mb-3">
     <%= form.label :name, class: 'form-label' %>
-    <%= form.select :publication_id, Publication.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
-
+    &nbsp;&nbsp;
+    <strong><%= @broadcast.publication.name %></strong>
   </div>
 
   <div class="mb-3">
@@ -43,8 +43,9 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :recipients_group, class: 'form-label' %>
-    <%= form.text_field :recipients_group, class: 'form-control' %>
+    <%= form.label :recipients_group, class: 'form-label' %> <br>
+    <%= form.select :recipients_group, Contact.roles.collect { |role| [ role[0], role[0] ] } %>
+
   </div>
 
       <%= form.submit 'Next Step', class:"btn btn-primary" %>

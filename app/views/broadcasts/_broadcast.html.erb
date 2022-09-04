@@ -1,37 +1,31 @@
-<div id="<%= dom_id broadcast %>">
-  <p>
-    <strong>Name:</strong>
-    <%= broadcast.name %>
-  </p>
 
-  <p>
-    <strong>Subject:</strong>
-    <%= broadcast.subject %>
-  </p>
-
-  <p>
-    <strong>Preview:</strong>
-    <%= broadcast.preview %>
-  </p>
-
-  <p>
-    <strong>Sender name:</strong>
-    <%= broadcast.sender_name %>
-  </p>
-
-  <p>
-    <strong>Sender email:</strong>
-    <%= broadcast.sender_email %>
-  </p>
-
-  <p>
-    <strong>Recipients group:</strong>
-    <%= broadcast.recipients_group %>
-  </p>
-
-  <p>
-    <strong>Send at:</strong>
-    <%= broadcast.send_at %>
-  </p>
-
-</div>
+<dl class="dl-horizontal">
+  <dt>Publication:</dt>
+  <dd>
+    <%= link_to @broadcast.publication.name, @broadcast.publication %>
+  </dd>
+  <dt>Subject:</dt>
+  <dd>
+    <%= @broadcast.subject %>
+  </dd>
+  <dt>Preview:</dt>
+  <dd>
+    <%= @broadcast.preview %>
+  </dd>
+  <dt>Sender name:</dt>
+  <dd>
+    <%= @broadcast.sender_name %>
+  </dd>
+  <dt>Sender email:</dt>
+  <dd>
+    <%= @broadcast.sender_email %>
+  </dd>
+  <dt>Recipients group:</dt>
+  <dd>
+    <%= @broadcast.recipients_group %>
+  </dd>
+  <dt>Send at:</dt>
+  <dd>
+    <%= "#{@broadcast.send_at.strftime(" %a, %b %d %Y -- %Z")} (#{@broadcast.scheduled_at})" %>
+  </dd>
+</dl>
