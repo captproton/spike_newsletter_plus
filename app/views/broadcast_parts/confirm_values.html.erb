@@ -54,7 +54,7 @@
     </div>
     <div class="edit-button">
       <%= link_to  "Edit",
-          wizard_path(:assign_settings),
+          wizard_path(:assign_settings, anchor: "recipients"),
           class: "btn btn-secondary"
           %>    
     </div>
@@ -67,7 +67,8 @@
       <%= "#{@broadcast.sender_name} (#{@broadcast.sender_email})" %>
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "sender_name"),
           class: "btn btn-secondary" %>    
     </div>
   </div>
@@ -79,7 +80,8 @@
       <%= "#{@broadcast.subject}" %>
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "subject"),
           class: "btn btn-secondary" %>    
     </div>    
   </div>
@@ -91,7 +93,8 @@
       <%= "#{@broadcast.preview}" %>    
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "preview"),
           class: "btn btn-secondary" %>    
     </div>    
   </div>
@@ -103,25 +106,25 @@
     &nbsp;&nbsp;
     </div>
     <div class="edit-button">
-    <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>    
+      <%= link_to "Edit" , 
+          wizard_path(:create_content),
+          class: "btn btn-secondary" %>    
     </div>
   </div>
   <div class="content-review-grid">
     <div  class="preview-container">
         <%= render "preview_card" %>
-
-
-
     </div>
     <div class="buttons-container">
       <div class="content-preview--buttons-div">
-        <%= link_to  "Preview", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>
+      <%= link_to "Preview", @broadcast, target: "_blank", class: "btn btn-secondary" %>
         <br>
         &nbsp;&nbsp;
         <%= link_to  "Send Test", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>    
+          class: "btn btn-secondary" %>
+        <br>
+        (send to test conversation, and open)
+
 
       </div>
     </div>
