@@ -44,6 +44,8 @@ class BroadcastPartsController < ApplicationController
     when 'confirm_values'
         link_classes = "nav-link active"
 
+        @recipient_count = Contact.send(@broadcast.recipients_group).count
+
         @now = Time.now
         @future = Time.now.years_since(99)
         "----------------------------------------------------------------"
