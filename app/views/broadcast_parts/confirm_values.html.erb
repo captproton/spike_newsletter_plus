@@ -61,7 +61,8 @@
     <div class="edit-button">
       <%= link_to  "Edit",
           wizard_path(:assign_settings, anchor: "recipients"),
-          class: "btn btn-secondary"
+          class: "btn btn-secondary", 
+          target: "_blank"
           %>    
     </div>
   </div>
@@ -74,8 +75,10 @@
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", 
-          wizard_path(:assign_settings, anchor: "sender_name"),
-          class: "btn btn-secondary" %>    
+          wizard_path(:assign_settings, anchor: "sender", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank"
+        %>    
     </div>
   </div>
   <hr />
@@ -87,8 +90,9 @@
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", 
-          wizard_path(:assign_settings, anchor: "subject"),
-          class: "btn btn-secondary" %>    
+          wizard_path(:assign_settings, anchor: "subject", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>    
   </div>
   <hr />
@@ -100,8 +104,9 @@
     </div>
     <div class="edit-button">
       <%= link_to  "Edit", 
-          wizard_path(:assign_settings, anchor: "preview"),
-          class: "btn btn-secondary" %>    
+          wizard_path(:assign_settings, anchor: "preview", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>    
   </div>
   <hr />
@@ -114,7 +119,8 @@
     <div class="edit-button">
       <%= link_to "Edit" , 
           wizard_path(:create_content),
-          class: "btn btn-secondary" %>    
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>
   </div>
   <div class="content-review-grid">
@@ -127,7 +133,8 @@
         <br>
         &nbsp;&nbsp;
         <%= link_to  "Send Test", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>
+          class: "btn btn-secondary",
+          target: "_blank" %>
         <br>
         (send to test conversation, and open)
 
