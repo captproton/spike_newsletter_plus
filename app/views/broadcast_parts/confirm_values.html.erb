@@ -25,9 +25,15 @@
   .content-review-grid .preview-container {
     grid-column: 1 /  span 2;
   }
-  .content-review-grid .buttons-container {
-    grid-column: 3 /  span 2;
 
+  .content-review-grid .buttons-container {
+    grid-column: 4 /  span 1;
+
+  }
+  @media screen and (min-width: 400px) {
+    .content-review-grid .buttons-container {
+      grid-column: 3 /  span 1;
+    }
   }
   .preview_image {
     display:block;
