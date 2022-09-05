@@ -1,4 +1,14 @@
+<style>
 
+  
+:target {
+	color: white;
+	background: #f60;
+  border: 1px solid;
+  border-color: #D4D4D4;
+}
+
+</style>
   <%= render "builder_nav" %>
 <hr>
 
@@ -22,27 +32,28 @@
     <strong><%= @broadcast.publication.name %></strong>
   </div>
 
-  <div class="mb-3">
+  <div id="subject" class="mb-3">
     <%= form.label :subject, class: 'form-label' %>
     <%= form.text_field :subject, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div id="preview"  class="mb-3">
     <%= form.label :preview, class: 'form-label' %>
     <%= form.text_field :preview, class: 'form-control' %>
   </div>
-
-  <div class="mb-3">
-    <%= form.label :sender_name, class: 'form-label' %>
-    <%= form.text_field :sender_name, class: 'form-control' %>
+  <div id="sender">
+    <div class="mb-3">
+      <%= form.label :sender_name, class: 'form-label' %>
+        <%= form.text_field :sender_name, class: 'form-control' %>
+    </div>
+    
+    <div class="mb-3">
+      <%= form.label :sender_email, class: 'form-label' %>
+        <%= form.text_field :sender_email, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="mb-3">
-    <%= form.label :sender_email, class: 'form-label' %>
-    <%= form.text_field :sender_email, class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
+  <div id="recipients" class="mb-3  >
     <%= form.label :recipients_group, class: 'form-label' %> <br>
     <%= form.select :recipients_group, Contact.roles.collect { |role| [ role[0], role[0] ] } %>
 

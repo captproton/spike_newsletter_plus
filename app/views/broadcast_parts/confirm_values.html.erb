@@ -25,9 +25,15 @@
   .content-review-grid .preview-container {
     grid-column: 1 /  span 2;
   }
-  .content-review-grid .buttons-container {
-    grid-column: 3 /  span 2;
 
+  .content-review-grid .buttons-container {
+    grid-column: 4 /  span 1;
+
+  }
+  @media screen and (min-width: 400px) {
+    .content-review-grid .buttons-container {
+      grid-column: 3 /  span 1;
+    }
   }
   .preview_image {
     display:block;
@@ -54,8 +60,9 @@
     </div>
     <div class="edit-button">
       <%= link_to  "Edit",
-          wizard_path(:assign_settings),
-          class: "btn btn-secondary"
+          wizard_path(:assign_settings, anchor: "recipients"),
+          class: "btn btn-secondary", 
+          target: "_blank"
           %>    
     </div>
   </div>
@@ -67,8 +74,11 @@
       <%= "#{@broadcast.sender_name} (#{@broadcast.sender_email})" %>
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>    
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "sender", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank"
+        %>    
     </div>
   </div>
   <hr />
@@ -79,8 +89,10 @@
       <%= "#{@broadcast.subject}" %>
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>    
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "subject", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>    
   </div>
   <hr />
@@ -91,8 +103,10 @@
       <%= "#{@broadcast.preview}" %>    
     </div>
     <div class="edit-button">
-      <%= link_to  "Edit", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>    
+      <%= link_to  "Edit", 
+          wizard_path(:assign_settings, anchor: "preview", target: "_blank"),
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>    
   </div>
   <hr />
@@ -103,25 +117,27 @@
     &nbsp;&nbsp;
     </div>
     <div class="edit-button">
-    <%= link_to  "Edit", wizard_path(:assign_settings),
-        class: "btn btn-secondary" %>    
+      <%= link_to "Edit" , 
+          wizard_path(:create_content),
+          class: "btn btn-secondary",
+          target: "_blank" %>    
     </div>
   </div>
   <div class="content-review-grid">
     <div  class="preview-container">
         <%= render "preview_card" %>
-
-
-
     </div>
     <div class="buttons-container">
       <div class="content-preview--buttons-div">
-        <%= link_to  "Preview", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>
+      <%= link_to "Preview", @broadcast, target: "_blank", class: "btn btn-secondary" %>
         <br>
         &nbsp;&nbsp;
         <%= link_to  "Send Test", wizard_path(:assign_settings),
-          class: "btn btn-secondary" %>    
+          class: "btn btn-secondary",
+          target: "_blank" %>
+        <br>
+        (send to test conversation, and open)
+
 
       </div>
     </div>
