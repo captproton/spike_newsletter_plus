@@ -8,6 +8,13 @@ end
 class Broadcast < ApplicationRecord
   include FormSteps
 
+  # calculate time difference
+require 'dotiw'
+
+include ActionView::Helpers::DateHelper
+include ActionView::Helpers::TextHelper
+include ActionView::Helpers::NumberHelper
+
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
   attr_accessor :form_step
 
@@ -32,6 +39,16 @@ class Broadcast < ApplicationRecord
     }
   after_initialize :set_default_status, if: :new_record?
 
+  # calculate time difference  
+  def scheduled_at
+      phrase_of_future_or_past = self.send_at < Time.now ? "ago" : "from now"
+
+    return distance_of_time_in_words(Time.now, 
+                                      self.send_at, 
+                                      false, 
+                                      highest_measures: 2) + " " + "#{phrase_of_future_or_past}"
+  end
+  
   
   private
 

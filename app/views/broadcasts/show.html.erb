@@ -5,22 +5,10 @@
   <%= link_to edit_broadcast_path(@broadcast), class: 'btn btn-primary' do %>
     Edit
   <% end %>
-  <h1>Show broadcast</h1>
+  <h1>
+    <%= @broadcast.subject %>
+  </h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>Publication:</dt>
-  <dd><%= @broadcast.publication.name %></dd>
-  <dt>Subject:</dt>
-  <dd><%= @broadcast.subject %></dd>
-  <dt>Preview:</dt>
-  <dd><%= @broadcast.preview %></dd>
-  <dt>Sender name:</dt>
-  <dd><%= @broadcast.sender_name %></dd>
-  <dt>Sender email:</dt>
-  <dd><%= @broadcast.sender_email %></dd>
-  <dt>Recipients group:</dt>
-  <dd><%= @broadcast.recipients_group %></dd>
-  <dt>Send at:</dt>
-  <dd><%= @broadcast.send_at %></dd>
-</dl>
+<%= render "broadcast" %>
+

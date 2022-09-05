@@ -44,43 +44,29 @@ class BroadcastPartsController < ApplicationController
     when 'confirm_values'
         link_classes = "nav-link active"
 
+        @recipient_count = Contact.send(@broadcast.recipients_group).count
+
         @now = Time.now
         @future = Time.now.years_since(99)
-        "----------------------------------------------------------------"
-        puts "original params: #{broadcast_params}"
+        # "----------------------------------------------------------------"
+        # puts "original params: #{broadcast_params}"
         new_params = broadcast_params
-        puts "new params: #{new_params}"
-        "----------------------------------------------------------------"
+        # puts "new params: #{new_params}"
+        # "----------------------------------------------------------------"
 
-
-        if    broadcast_params["status"] == "d"
-          "================================================================"
-          puts "submitted params: #{broadcast_params}"
+        # update the delivery params
+        if broadcast_params["status"] == "d"
           new_params = new_params.extract!("status")
           new_params["send_at"] = @future
-          puts "updated params: #{new_params}"
-          "================================================================"        
         elsif new_params["status"] == "ir"
-          "================================================================"
-          puts "submitted params: #{broadcast_params}"
           new_params = broadcast_params.extract!("status")
           new_params["send_at"] = @now
-          puts "updated params: #{new_params}"
-          "================================================================"
         elsif broadcast_params["status"] == "sl"
-          "================================================================"
-          puts "submitted params: #{broadcast_params}"
           # do not change the params.  Take the user's input as is.
           new_params = broadcast_params
-          puts "updated params: #{new_params}"
-          "================================================================"
         else
-          "================================================================"
-          puts "submitted params: #{broadcast_params}"
           new_params = new_params.extract!("status")
           new_params["send_at"] = @future
-          puts "updated params: #{new_params}"
-          "================================================================"        
         end
 
         
@@ -101,13 +87,23 @@ class BroadcastPartsController < ApplicationController
 
   private
 
-    def set_broadcast
-      @broadcast = Broadcast.find(params[:broadcast_id])
-    end
+  def set_broadcast
+    @broadcast = Broadcast.find(params[:broadcast_id])
+  end
 
   def broadcast_params
     params  .require(:broadcast)
-            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized, :content, :status, :publication_id)
+            .permit(:name, 
+                    :subject, 
+                    :preview, 
+                    :sender_name, 
+                    :sender_email, 
+                    :recipients_group, 
+                    :send_at, 
+                    :initialized, 
+                    :content, 
+                    :status, 
+                    :publication_id)
   end
 
 end

@@ -1,7 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :publications
+  resources :publications do
+    resources :broadcasts, only: [:create]
+  end
   get 'broadcast_parts/assign_settings'
   get 'broadcast_parts/create_content'
   get 'broadcast_parts/confirm_values'

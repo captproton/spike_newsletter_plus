@@ -8,6 +8,7 @@ class PublicationsController < ApplicationController
 
   # GET /publications/1 or /publications/1.json
   def show
+    @broadcast = Broadcast.new
   end
 
   # GET /publications/new

@@ -1,0 +1,6 @@
+<%= form_with(model: [@publication, @broadcast]) do |form| %>
+    <%= form.hidden_field :initialized, value: true %>
+    <%= form.submit class: 'btn btn-primary', value: "Add New Broadcast" %>
+
+  </div>
+<% end %>

@@ -1,5 +1,6 @@
 class BroadcastsController < ApplicationController
   before_action :set_broadcast, only: %i[ show edit update destroy ]
+  before_action :get_publication, only: %i[ create ]
 
   # GET /broadcasts or /broadcasts.json
   def index
@@ -22,7 +23,7 @@ class BroadcastsController < ApplicationController
 
   # POST /broadcasts or /broadcasts.json
   def create
-    @broadcast = Broadcast.new(broadcast_params)
+    @broadcast = @publication.broadcasts.new(broadcast_params)
 
     respond_to do |format|
       if @broadcast.save
@@ -64,9 +65,21 @@ class BroadcastsController < ApplicationController
       @broadcast = Broadcast.find(params[:id])
     end
 
+    def get_publication
+      @publication = Publication.find(params[:publication_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def broadcast_params
       params.require(:broadcast)
-            .permit(:name, :subject, :preview, :sender_name, :sender_email, :recipients_group, :send_at, :initialized)
+            .permit(:name, 
+                    :subject, 
+                    :preview, 
+                    :sender_name, 
+                    :sender_email, 
+                    :recipients_group, 
+                    :send_at, 
+                    :initialized, 
+                    :publication_id)
     end
 end
