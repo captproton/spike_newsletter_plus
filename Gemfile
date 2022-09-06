@@ -93,3 +93,6 @@ gem "activerecord-import", "~> 1.4"
 gem "wicked", "~> 1.4"
 
 gem "dotiw", "~> 5.3"
+gem "mailboxer", git: "https://github.com/captproton/mailboxer", branch: "develop"
+
+gem "letter_opener", "~> 1.8", group: :development

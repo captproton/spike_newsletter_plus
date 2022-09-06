@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+  acts_as_messageable
 
   scope :subscribers, -> { where(role: 'subscriber') }
   scope :generic, -> { where(role: 'generic') }

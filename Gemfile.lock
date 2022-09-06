@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/captproton/mailboxer
+  revision: 604c2e5237836a0c8bdead3b18e51d3da7b678f2
+  branch: develop
+  specs:
+    mailboxer (0.15.1)
+      rails (>= 6.1)
+
+GIT
   remote: https://github.com/heartcombo/responders.git
   revision: 161f205b649489d740821425560eecd355fa02be
   branch: main
@@ -155,6 +163,10 @@ GEM
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
     jwt (2.5.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
@@ -354,7 +366,9 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jsbundling-rails
+  letter_opener (~> 1.8)
   madmin
+  mailboxer!
   name_of_person (~> 1.1)
   noticed (~> 1.4)
   omniauth-facebook (~> 8.0)
