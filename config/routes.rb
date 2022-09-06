@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :publications do
     resources :broadcasts, only: [:create]
   end
+
+  resources :conversations do
+    resources :messages
+  end
   get 'broadcast_parts/assign_settings'
   get 'broadcast_parts/create_content'
   get 'broadcast_parts/confirm_values'

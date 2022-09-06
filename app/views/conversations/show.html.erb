@@ -1,0 +1,20 @@
+<h1><%= @conversation.subject %> -- <%= @conversation.id %></h1>
+
+<% @conversation.receipts_for(current_user).each do |reciept| %>
+    <div class="reciept">
+        <div class="message"><%=reciept.message.sender.name %> commented
+            <p>
+                <%= reciept.message.body %>
+            </p>
+        </div>
+
+    </div>
+<% end %>
+<p>reply</p>
+<%= form_tag conversation_messages_path(@conversation), method: :post do %>
+    <div class="message-body" style="border-width: thick; border-color: black;">
+        <%= text_area_tag 'body', nil, size: "25x10" %>
+        &nbsp;
+    </div>
+    <%= submit_tag %>
+<% end %>
