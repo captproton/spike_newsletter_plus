@@ -1,20 +1,51 @@
-<h1><%= @conversation.subject %> -- <%= @conversation.id %></h1>
+<h1>
+    <%= @conversation.subject %>
+</h1>
 
-<% @conversation.receipts_for(current_user).each do |reciept| %>
-    <div class="reciept">
-        <div class="message"><%=reciept.message.sender.name %> commented
-            <p>
-                <%= reciept.message.body %>
-            </p>
-        </div>
+<h4>Participants</h4>
+<% @conversation.participants.each do |participant| %>
+    <div>
+        <%= participant.name %>
+    </div>
+    <% end %>
 
-    </div>
-<% end %>
-<p>reply</p>
-<%= form_tag conversation_messages_path(@conversation), method: :post do %>
-    <div class="message-body" style="border-width: thick; border-color: black;">
-        <%= text_area_tag 'body', nil, size: "25x10" %>
-        &nbsp;
-    </div>
-    <%= submit_tag %>
-<% end %>
+        <hr />
+
+        <% @conversation.receipts_for(current_user).each do |receipt| %>
+            <div>
+                <div>
+                    <%= receipt.message.sender.name %> commented
+                </div>
+                <%= simple_format receipt.message.body %>
+                    <% if receipt.message.rich_body.to_s.length> 0 %>
+                        <%= simple_format receipt.message.rich_body.to_s %>
+
+                            <% end %>
+
+                                <% if receipt.message.attachment? %>
+                                    <strong>Attachment</strong>
+                                    <%= link_to receipt.message.attachment.file.filename,
+                                        receipt.message.attachment.url, target: :blank %>
+                                        <% end %>
+            </div>
+
+            <hr />
+            <% end %>
+
+
+                <%= form_for @message, url: conversation_messages_path(@conversation) do |f| %>
+                    <div>
+                        <%#= f.text_area :body %>
+                    </div>
+
+                    <div class="conversation-add-message">
+                        <div class="mb-3">
+                            <%= f.label :rich_body %>
+                                <%= f.rich_text_area :rich_body %>
+                        </div>
+                    </div>
+
+
+
+                    <%= f.submit %>
+                        <% end %>

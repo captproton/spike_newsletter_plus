@@ -26,4 +26,9 @@ class MessagesController < ApplicationController
     @conversation = current_user.mailbox.conversations.find(params[:conversation_id])
   end
 
+  # Only allow a list of trusted parameters through.
+  def message_params
+    params.require(:mailboxer_message).permit(:body, :rich_body, :attachment, :conversation_id, conversation: [:id])
+  end
+
 end
