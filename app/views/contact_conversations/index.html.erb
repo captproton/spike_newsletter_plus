@@ -1,0 +1,34 @@
+<div class="col-sm-6 text-end">
+  <%= link_to new_contact_conversation_path, class: 'btn btn-primary' do %>
+    Add New Conversation
+    <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+
+
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @conversations.each do |conversation| %>
+        <%= content_tag :tr, id: dom_id(conversation), class: dom_class(conversation) do %>
+
+
+
+
+          <td>
+            <%= link_to conversation.subject, contact_conversation_path(conversation) %>
+          </td>
+
+          <% end %>
+            <% end %>
+    </tbody>
+  </table>
+</div>

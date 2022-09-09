@@ -62,6 +62,13 @@ elapsed = Benchmark.measure do
 
     contacts.push(contact)
   end
+    puts "Creating publisher contact"
+    contact = Contact.new(name: "Publisher Bot", 
+                        email: "publisherbot@example.com", 
+                        role: rand.round)
+
+    contacts.push(contact)
+
   Contact.import(contacts)
 
 end
