@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :broadcasts, only: [:create]
   end
 
+  resources :contact_conversations do
+    resources :contact_messages
+  end
   resources :conversations do
     resources :messages
   end

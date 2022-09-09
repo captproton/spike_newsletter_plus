@@ -1,5 +1,13 @@
 class Contact < ApplicationRecord
+  # mailboxer messaging setup
   acts_as_messageable
+  def mailboxer_email(object)
+    return email
+  end
+
+  def mailboxer_name
+    self.name
+  end
 
   scope :subscribers, -> { where(role: 'subscriber') }
   scope :generic, -> { where(role: 'generic') }
