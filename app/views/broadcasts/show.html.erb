@@ -1,6 +1,6 @@
 <div class="page-header">
-  <%= link_to broadcasts_path, class: 'btn btn-default' do %>
-    All Broadcasts
+  <%= link_to publication_path(@broadcast.publication), class: 'btn btn-default' do %>
+    << Back to <%= @broadcast.publication.name %>
   <% end %>
   <%= link_to edit_broadcast_path(@broadcast), class: 'btn btn-primary' do %>
     Edit

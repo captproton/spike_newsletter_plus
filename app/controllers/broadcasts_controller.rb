@@ -38,8 +38,33 @@ class BroadcastsController < ApplicationController
 
   # PATCH/PUT /broadcasts/1 or /broadcasts/1.json
   def update
+        @recipient_count = Contact.send(@broadcast.recipients_group).count
+
+        @now = Time.now
+        @future = Time.now.years_since(99)
+        # "----------------------------------------------------------------"
+        # puts "original params: #{broadcast_params}"
+        new_params = broadcast_params
+        # puts "new params: #{new_params}"
+        # "----------------------------------------------------------------"
+
+        # update the delivery params
+        if broadcast_params["status"] == "d"
+          new_params = new_params.extract!("status")
+          new_params["send_at"] = @future
+        elsif new_params["status"] == "ir"
+          new_params = broadcast_params.extract!("status")
+          new_params["send_at"] = @now
+        elsif broadcast_params["status"] == "sl"
+          # do not change the params.  Take the user's input as is.
+          new_params = broadcast_params
+        else
+          new_params = new_params.extract!("status")
+          new_params["send_at"] = @future
+        end
+
     respond_to do |format|
-      if @broadcast.update(broadcast_params)
+      if @broadcast.update(new_params)
         format.html { redirect_to broadcast_url(@broadcast), notice: "Broadcast was successfully updated." }
         format.json { render :show, status: :ok, location: @broadcast }
       else
@@ -77,9 +102,11 @@ class BroadcastsController < ApplicationController
                     :preview, 
                     :sender_name, 
                     :sender_email, 
-                    :recipients_group, 
+                    :recipients_group,
+                    :content,
                     :send_at, 
                     :initialized, 
+                    :status,
                     :publication_id)
     end
 end
