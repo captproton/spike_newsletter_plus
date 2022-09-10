@@ -39,7 +39,7 @@ include ActionView::Helpers::NumberHelper
     }
   after_initialize :set_default_status, if: :new_record?
 
-  # calculate time difference  
+  # calculate time difference from present
   def scheduled_at
       phrase_of_future_or_past = self.send_at < Time.now ? "ago" : "from now"
 
@@ -49,7 +49,9 @@ include ActionView::Helpers::NumberHelper
                                       highest_measures: 2) + " " + "#{phrase_of_future_or_past}"
   end
   
-  
+  def self.publish
+    
+  end
   private
 
   def set_default_status
