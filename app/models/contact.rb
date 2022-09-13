@@ -11,9 +11,10 @@ class Contact < ApplicationRecord
 
   scope :subscribers, -> { where(role: 'subscriber') }
   scope :generic, -> { where(role: 'generic') }
+  scope :publishers, -> { where(role: 'publisher') }
   
  # set user role
-  enum role: %i[generic subscriber]
+  enum role: %i[generic subscriber publisher]
   after_initialize :set_default_role, if: :new_record?
 
     def set_default_role
