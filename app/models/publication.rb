@@ -1,6 +1,7 @@
 class Publication < ApplicationRecord
     CONTACT_EMAIL = "publisherbot@example.com"
 
+    belongs_to :contact
     has_many :broadcasts, dependent: :destroy
     after_create :create_supporting_conversation
     def create_supporting_conversation

@@ -57,19 +57,27 @@ elapsed = Benchmark.measure do
   50.times do |x|
     puts "Creating contacts #{x}"
     contact = Contact.new(name: FFaker::Name.name, 
-                        email: FFaker::Internet.email, 
-                        role: rand.round)
+                          email: FFaker::Internet.email, 
+                          role: Contact.roles.keys.sample)
 
     contacts.push(contact)
   end
-    puts "Creating publisher contact"
-    contact = Contact.new(name: "Publisher Bot", 
-                        email: "publisherbot@example.com", 
-                        role: rand.round)
-
-    contacts.push(contact)
 
   Contact.import(contacts)
+
+  # publications
+  publications = []
+  publisher_contacts = Contact.publishers
+
+  50.times do |x|
+    puts "Creating publications #{x}"
+    publication = Publication.new(name: FFaker::Name.name, 
+                              contact: publisher_contacts.sample)
+
+    publications.push(publication)
+  end
+
+  Publication.import(publications)
 
 end
 

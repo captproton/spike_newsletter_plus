@@ -1,5 +1,6 @@
 class PublicationsController < ApplicationController
   before_action :set_publication, only: %i[ show edit update destroy ]
+  before_action :set_contact, only: %i[ create ]
 
   # GET /publications or /publications.json
   def index
@@ -22,7 +23,7 @@ class PublicationsController < ApplicationController
 
   # POST /publications or /publications.json
   def create
-    @publication = Publication.new(publication_params)
+    @publication = @contact.publications.new(name: publication_params[:name])
 
     respond_to do |format|
       if @publication.save
@@ -64,8 +65,11 @@ class PublicationsController < ApplicationController
       @publication = Publication.find(params[:id])
     end
 
+    def set_contact
+      @contact = Contact.where(email: publication_params[:contact_email], name: publication_params[:contact_name], role: "publisher").first_or_create
+    end
     # Only allow a list of trusted parameters through.
     def publication_params
-      params.require(:publication).permit(:name, :email)
+      params.require(:publication).permit(:name, :contact_email, :contact_name)
     end
 end

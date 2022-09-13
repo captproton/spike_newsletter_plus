@@ -16,10 +16,13 @@
     <%= form.text_field :name, class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= form.label :email, class: 'form-label' %>
-    <%= form.email_field :email, class: 'form-control'  %>
+    <%= form.label :contact_name, class: 'form-label' %>
+      <%= form.text_field :contact_name, class: 'form-control' %>
   </div>
-
+  <div class="mb-3">
+    <%= form.label :contact_email, class: 'form-label' %>
+      <%= form.email_field :contact_email, class: 'form-control' %>
+  </div>
   <div class="mb-3">
     <% if publication.persisted? %>
       <div class="float-end">
