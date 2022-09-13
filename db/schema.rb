@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_05_180555) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_015853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -185,6 +185,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_180555) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "contact_id", null: false
+    t.index ["contact_id"], name: "index_publications_on_contact_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -230,6 +232,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_180555) do
   add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
   add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
   add_foreign_key "posts", "users"
+  add_foreign_key "publications", "contacts"
   add_foreign_key "services", "users"
   add_foreign_key "users", "addresses"
 end
