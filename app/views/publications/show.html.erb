@@ -5,16 +5,19 @@
   <%= link_to edit_publication_path(@publication), class: 'btn btn-primary' do %>
     Edit
   <% end %>
+
+  <%= link_to "published feed", 
+              publication_contact_conversation_path(
+                @publication, 
+                @publication.contact.mailbox.conversations.find_by_subject(@publication.name)
+              ) 
+  %>
+
   <h1><%= @publication.name %></h1>
 
   <%= render "form_to_initialize_broadcast" %>
 
 </div>
-
-<dl class="dl-horizontal">
-  <dt>Name:</dt>
-  <dd><%= @publication.name %></dd>
-</dl>
 
 <div class="grid-container">
   <%= render partial: "card" , collection: @publication.broadcasts %>

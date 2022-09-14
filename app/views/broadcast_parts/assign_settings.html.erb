@@ -31,6 +31,24 @@
     &nbsp;&nbsp;
     <strong><%= @broadcast.publication.name %></strong>
   </div>
+  <div class="mb-3">
+    <span>Sender name</span>
+    &nbsp;&nbsp;
+    <strong>
+      <%= @broadcast.publication.contact.name %>
+    </strong>
+  </div>
+  <div class="mb-3">
+    <span>Sender email</span>
+    &nbsp;&nbsp;
+    <strong>
+      <%= @broadcast.publication.contact.email %>
+    </strong>
+  </div>
+  
+  <!-- hidden values for sender -->
+  <%= form.hidden_field :sender_name, value: @broadcast.publication.contact.name %>
+  <%= form.hidden_field :sender_email, value: @broadcast.publication.contact.email  %>
 
   <div id="subject" class="mb-3">
     <%= form.label :subject, class: 'form-label' %>
@@ -40,17 +58,6 @@
   <div id="preview"  class="mb-3">
     <%= form.label :preview, class: 'form-label' %>
     <%= form.text_field :preview, class: 'form-control' %>
-  </div>
-  <div id="sender">
-    <div class="mb-3">
-      <%= form.label :sender_name, class: 'form-label' %>
-        <%= form.text_field :sender_name, class: 'form-control' %>
-    </div>
-    
-    <div class="mb-3">
-      <%= form.label :sender_email, class: 'form-label' %>
-        <%= form.text_field :sender_email, class: 'form-control' %>
-    </div>
   </div>
 
   <div id="recipients" class="mb-3  >
