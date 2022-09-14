@@ -5,6 +5,9 @@ class PublicationsController < ApplicationController
   # GET /publications or /publications.json
   def index
     @publications = Publication.all
+    # @conversation = @publication.contact.mailbox.conversations.find_by_subject(@publication.name)
+    # @convo = @publication.contact.mailbox.conversations.find_by_subject(@publication.name)
+    # @conversations = @publication.contact.mailbox.conversations
   end
 
   # GET /publications/1 or /publications/1.json
@@ -23,7 +26,9 @@ class PublicationsController < ApplicationController
 
   # POST /publications or /publications.json
   def create
-    @publication = @contact.publications.new(name: publication_params[:name])
+    @contact = Contact.where(email: publication_params[:contact_email])
+                      .first_or_create(email: publication_params[:contact_email], name: publication_params[:contact_name], role: "publisher")
+    @publication = @contact.publications.create!(name: publication_params[:name])
 
     respond_to do |format|
       if @publication.save
