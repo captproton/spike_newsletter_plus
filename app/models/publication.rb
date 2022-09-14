@@ -1,14 +1,15 @@
 class Publication < ApplicationRecord
     CONTACT_EMAIL = "publisherbot@example.com"
+    after_create :create_supporting_conversation
 
     belongs_to :contact
+
     has_many :broadcasts, dependent: :destroy
-    after_create :create_supporting_conversation
     def create_supporting_conversation
         recipients      = self.initial_recipient
         subject         = self.name
-        sender          = initial_recipient
-        convo_title     =  "start_of_publication"
+        sender          = self.contact
+        convo_title     = "Publication initiated: #{self.name}"
 
         receipt         = sender.send_message(recipients, convo_title, subject)
         # conversation  = reciept.notification.conversation
@@ -16,13 +17,13 @@ class Publication < ApplicationRecord
     end
 
     def current_contact
-        Contact.find_by_email(self.email)
+        Contact.where(email: self.email).first_or_create(email: self.email, name: self.name)
         current_contact = Contact.create_or_find_by(email: self.email, name: self.name)
 
     end
 
     def initial_recipient
-        test_recipient = Contact.create_or_find_by(email: "test_recipient@example.com", name: "test_recipient bot")
+        test_recipient = Contact.where(email: "test_recipient@example.com", name: "test_recipient bot").first_or_create
     end
 
     def _find_recipeints_for_group(role)

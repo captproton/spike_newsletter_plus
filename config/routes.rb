@@ -3,6 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   resources :publications do
     resources :broadcasts, only: [:create]
+    resources :contact_conversations, only: [:index, :show]
   end
 
   resources :contact_conversations do

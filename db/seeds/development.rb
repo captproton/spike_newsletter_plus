@@ -67,18 +67,15 @@ elapsed = Benchmark.measure do
 
   # publications
   publications = []
-  publisher_contacts = Contact.publishers
 
-  50.times do |x|
+  5.times do |x|
     puts "Creating publications #{x}"
-    publication = Publication.new(name: FFaker::Name.name, 
-                              contact: publisher_contacts.sample)
+    contact = Contact.publishers.sample
+    publication_params = {name: FFaker::Name.name, contact_name: contact.name, contact_email: contact.email}
 
-    publications.push(publication)
+    publication = contact.publications.create!(name: publication_params[:name])
+
   end
-
-  Publication.import(publications)
-
 end
 
 puts "Seeded development DB in #{elapsed.real} seconds"

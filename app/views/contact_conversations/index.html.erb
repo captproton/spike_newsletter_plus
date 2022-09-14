@@ -24,7 +24,7 @@
 
 
           <td>
-            <%= link_to conversation.subject, contact_conversation_path(conversation) %>
+            <%= link_to conversation.subject, publication_contact_conversation_path(params[:publication_id],conversation) %>
           </td>
 
           <% end %>

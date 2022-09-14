@@ -1,8 +1,10 @@
 class ContactConversationsController < ApplicationController
-  before_action :set_current_contact
+  before_action :set_current_contact, except: %i[ show index ]
 
   CONTACT_EMAIL = "publisherbot@example.com"
   def index
+    publication = Publication.find((params[:publication_id]))
+    @current_contact = publication.contact
     @conversations = @current_contact.mailbox.conversations
   end
 
@@ -22,6 +24,9 @@ class ContactConversationsController < ApplicationController
   end
 
   def show
+    publication = Publication.find((params[:publication_id]))
+    @current_contact = publication.contact
+
     @conversation = @current_contact.mailbox.conversations.find(params[:id])
     @conversation.mark_as_read(@current_contact)
     @message = Mailboxer::Message.new
@@ -43,6 +48,7 @@ class ContactConversationsController < ApplicationController
   private
 
   def set_current_contact
+    # @current_contact = Contact.find_by_email(CONTACT_EMAIL)
     @current_contact = Contact.find_by_email(CONTACT_EMAIL)
   end
 

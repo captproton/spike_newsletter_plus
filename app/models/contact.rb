@@ -1,9 +1,9 @@
 class Contact < ApplicationRecord
-  # has_many ;publications
+  has_many :publications
+
   # mailboxer messaging setup
   validates_presence_of :email, on: :create, message: "can't be blank"
   validates_presence_of :name, on: :create, message: "can't be blank"
-  has_many :publications
   acts_as_messageable
   def mailboxer_email(object)
     return email
