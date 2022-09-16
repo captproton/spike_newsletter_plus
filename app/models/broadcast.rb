@@ -16,10 +16,11 @@ include ActionView::Helpers::TextHelper
 include ActionView::Helpers::NumberHelper
 
 # scopes to find by status
-scope :drafts, -> { where(status: 'd') }
-scope :immediate_releases, -> { where(status: 'ir') }
+scope :drafts,              -> { where(status: 'd') }
+scope :immediate_releases,  -> { where(status: 'ir') }
 scope :scheduled_for_later, -> { where(status: 'sl') }
-scope :published, -> { where(status: 'p') }
+scope :ready_to_publish,    -> { scheduled_for_later.where("send_at < ?", Time.now) }
+scope :published,           -> { where(status: 'p') }
 
 
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
@@ -56,8 +57,13 @@ scope :published, -> { where(status: 'p') }
                                       highest_measures: 2) + " " + "#{phrase_of_future_or_past}"
   end
   
-  def self.publish
+  def self.ready_to_send
     # see notes for 9/14
+    ready_to_send = immediate_releases + ready_to_publish
+
+    # ready_to_send.each do |broadcast|
+
+    # end
   end
 
   private
