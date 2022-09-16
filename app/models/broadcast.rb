@@ -60,10 +60,10 @@ scope :published,           -> { where(status: 'p') }
   def self.ready_to_send
     # see notes for 9/14
     ready_to_send = immediate_releases + ready_to_publish
+  end
 
-    # ready_to_send.each do |broadcast|
-
-    # end
+  def publish
+    publication.reply_to_current_conversation(content.body)
   end
 
   private

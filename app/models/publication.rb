@@ -25,6 +25,18 @@ class Publication < ApplicationRecord
         contact.mailbox.conversations.find_by_subject(name)
     end
 
+    def reply_to_current_conversation(message)
+        receipt = contact.reply_to_conversation(current_conversation, message.to_s)
+    end
+
+    def publish_current_broadcasts
+        broadcasts.ready_to_send.each do |broadcast|
+            reply_to_current_conversation(broadcast.content)
+            broadcast.status = "published"
+            broadcast.save!
+        end
+    end
+
     def initial_recipient
         test_recipient = Contact.where(email: "test_recipient@example.com", name: "test_recipient bot").first_or_create
     end
