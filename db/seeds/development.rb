@@ -57,13 +57,25 @@ elapsed = Benchmark.measure do
   50.times do |x|
     puts "Creating contacts #{x}"
     contact = Contact.new(name: FFaker::Name.name, 
-                        email: FFaker::Internet.email, 
-                        role: rand.round)
+                          email: FFaker::Internet.email, 
+                          role: Contact.roles.keys.sample)
 
     contacts.push(contact)
   end
+
   Contact.import(contacts)
 
+  # publications
+  publications = []
+
+  5.times do |x|
+    puts "Creating publications #{x}"
+    contact = Contact.publishers.sample
+    publication_params = {name: FFaker::Name.name, contact_name: contact.name, contact_email: contact.email}
+
+    publication = contact.publications.create!(name: publication_params[:name])
+
+  end
 end
 
 puts "Seeded development DB in #{elapsed.real} seconds"

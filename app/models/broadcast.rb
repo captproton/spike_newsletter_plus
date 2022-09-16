@@ -15,6 +15,14 @@ include ActionView::Helpers::DateHelper
 include ActionView::Helpers::TextHelper
 include ActionView::Helpers::NumberHelper
 
+# scopes to find by status
+scope :drafts,              -> { where(status: 'd') }
+scope :immediate_releases,  -> { where(status: 'ir') }
+scope :scheduled_for_later, -> { where(status: 'sl') }
+scope :ready_to_publish,    -> { scheduled_for_later.where("send_at < ?", Time.now) }
+scope :published,           -> { where(status: 'p') }
+
+
   # Instance level accessor http://apidock.com/ruby/Module/attr_accessor
   attr_accessor :form_step
 
@@ -30,16 +38,16 @@ include ActionView::Helpers::NumberHelper
     @send_now ||= false
   end
 
-    # set user role
+    # set broadcast types of status
     enum status: {
-      d: "keep_as_draft",
+      d: "draft",
       ir: "immediate_release",
-      sl: "schedule_for_later",
+      sl: "scheduled_for_later",
       p: "published"
     }
   after_initialize :set_default_status, if: :new_record?
 
-  # calculate time difference  
+  # calculate time difference from present
   def scheduled_at
       phrase_of_future_or_past = self.send_at < Time.now ? "ago" : "from now"
 
@@ -49,7 +57,15 @@ include ActionView::Helpers::NumberHelper
                                       highest_measures: 2) + " " + "#{phrase_of_future_or_past}"
   end
   
-  
+  def self.ready_to_send
+    # see notes for 9/14
+    ready_to_send = immediate_releases + ready_to_publish
+  end
+
+  def publish
+    publication.reply_to_current_conversation(content.body)
+  end
+
   private
 
   def set_default_status

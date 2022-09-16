@@ -33,6 +33,17 @@ class User < ApplicationRecord
   has_one :address, dependent: :destroy, inverse_of: :user, autosave: true
   accepts_nested_attributes_for :address, allow_destroy: true
 
+  # mailboxer messaging setup
+  acts_as_messageable
+  def mailboxer_email(object)
+    return email
+  end
+
+  def mailboxer_name
+    self.name
+  end
+    
+
   # progressive validations for wicked
   # with_options if: -> { required_for_step?('set_name') } do |step|
   #   step.validates :first_name, presence: true

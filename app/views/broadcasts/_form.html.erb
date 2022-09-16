@@ -16,9 +16,11 @@
 
 <h5>Settings</h5>
   <div class="mb-3">
-    <%= form.label :publication_name, class: 'form-label' %>
-      <%= form.select :publication_id, Publication.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
-  
+    <span>Publication name</span>
+    &nbsp;&nbsp;
+    <strong>
+      <%= @broadcast.publication.name %>
+    </strong>
   </div>
   
   <div class="mb-3">
