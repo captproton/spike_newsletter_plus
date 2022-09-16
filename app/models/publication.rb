@@ -19,7 +19,22 @@ class Publication < ApplicationRecord
     def current_contact
         Contact.where(email: self.email).first_or_create(email: self.email, name: self.name)
         current_contact = Contact.create_or_find_by(email: self.email, name: self.name)
+    end
 
+    def current_conversation
+        contact.mailbox.conversations.find_by_subject(name)
+    end
+
+    def reply_to_current_conversation(message)
+        receipt = contact.reply_to_conversation(current_conversation, message.to_s)
+    end
+
+    def publish_current_broadcasts
+        broadcasts.ready_to_send.each do |broadcast|
+            reply_to_current_conversation(broadcast.content)
+            broadcast.status = "published"
+            broadcast.save!
+        end
     end
 
     def initial_recipient
