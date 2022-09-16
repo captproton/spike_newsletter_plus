@@ -19,7 +19,10 @@ class Publication < ApplicationRecord
     def current_contact
         Contact.where(email: self.email).first_or_create(email: self.email, name: self.name)
         current_contact = Contact.create_or_find_by(email: self.email, name: self.name)
+    end
 
+    def current_conversation
+        contact.mailbox.conversations.find_by_subject(name)
     end
 
     def initial_recipient
