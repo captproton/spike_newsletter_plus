@@ -30,7 +30,9 @@ class Publication < ApplicationRecord
     end
 
     def publish_current_broadcasts
-        broadcasts.ready_to_send.each do |broadcast|
+        broadcasts_to_dispatch = broadcasts.ready_to_send
+        return "nothing ready to dispatch" if broadcasts_to_dispatch.length == 0
+        broadcasts_to_dispatch.each do |broadcast|
             reply_to_current_conversation(broadcast.content)
             broadcast.status = "published"
             broadcast.save!
