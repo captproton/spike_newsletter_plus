@@ -31,14 +31,34 @@ class Publication < ApplicationRecord
 
     def publish_current_broadcasts
         broadcasts_to_dispatch = broadcasts.ready_to_send
-        return "nothing ready to dispatch" if broadcasts_to_dispatch.length == 0
+        return "#{Time.now}:  #{name} has nothing ready to dispatch" if broadcasts_to_dispatch.length == 0
+        dispatched_broadcasts = broadcasts_to_dispatch.each.map {|b| 
+            {id: b.id, 
+            subject: b.subject, 
+            publication: {
+                id: b.publication.id, 
+                name: b.publication.name
+                }
+            }
+        }
         broadcasts_to_dispatch.each do |broadcast|
             reply_to_current_conversation(broadcast.content)
             broadcast.status = "published"
             broadcast.save!
         end
+        return dispatched_broadcasts
     end
 
+    def self.dispatch_all
+        dispatched_publications = []
+        Publication.all.each do |publication|
+            dispatch_attempt                = {}
+            dispatch_attempt[:time]         = Time.now
+            dispatch_attempt[:dispatched]   = publication.publish_current_broadcasts
+            dispatched_publications << dispatch_attempt
+        end        
+        dispatched_publications
+    end
     def initial_recipient
         test_recipient = Contact.where(email: "test_recipient@example.com", name: "test_recipient bot").first_or_create
     end
