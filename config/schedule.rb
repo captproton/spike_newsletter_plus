@@ -17,4 +17,18 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
+## legend
+# clear crontab:                crontab -r
+# update crontab:               whenever --update-crontab
+# update crontab development:   whenever --update-crontab --set environment='development'
+
+# set :output, "log/cron_log.log"
+set :output, "log/cron_log.log"
+env :PATH, ENV['PATH']
+
+every 2.minutes do
+  rake "whatever"
+  rake "yeeha"
+  rake "whenever_test"
+end
 # Learn more: http://github.com/javan/whenever
